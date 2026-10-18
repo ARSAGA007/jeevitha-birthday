@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Jeevitha! 🎂💖</title>
+  <meta name="description" content="A special birthday surprise made just for Jeevitha — filled with love, memories, and warm wishes from a friend." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Quicksand:wght@300;400;500;600;700&family=Pacifico&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- FLOATING BACKGROUND ELEMENTS -->
+<div class="bg-floaters" id="bgFloaters"></div>
+
+<!-- OPENING GIFT SCREEN -->
+<div id="giftScreen" class="gift-screen">
+  <div class="gift-bg-hearts" id="giftHearts"></div>
+  <div class="gift-content">
+    <div class="gift-box-wrap" id="giftBoxWrap" onclick="openGift()">
+      <div class="gift-box" id="giftBox">
+        <div class="gift-lid" id="giftLid">
+          <div class="gift-bow">
+            <div class="bow-left"></div>
+            <div class="bow-right"></div>
+            <div class="bow-center"></div>
+          </div>
+        </div>
+        <div class="gift-body">
+          <div class="gift-ribbon-v"></div>
+          <div class="gift-shine"></div>
+        </div>
+      </div>
+      <div class="gift-glow"></div>
+    </div>
+    <h1 class="gift-title">Hey Jeevitha! 💗</h1>
+    <p class="gift-subtitle">A Little Surprise Is Waiting for You 💌</p>
+    <p class="gift-hint">✨ Tap the gift to open ✨</p>
+  </div>
+</div>
+
+<!-- CONFETTI LAYER -->
+<canvas id="confettiCanvas"></canvas>
+
+<!-- MAIN WEBSITE -->
+<div id="mainSite" class="main-site hidden">
+
+  <!-- HERO SECTION -->
+  <section class="hero-section" id="home">
+    <div class="hero-content">
+      <div class="hero-badge">🎂 Birthday Special 🎂</div>
+      <h2 class="hero-sub">I Made Something Special Just for You...</h2>
+      <h1 class="hero-title">Happy Birthday,<br><span class="name-highlight">Jeevitha!</span> 🌸</h1>
+      <div class="hero-divider">
+        <span>💕</span><span>🌸</span><span>✨</span><span>🎀</span><span>✨</span><span>🌸</span><span>💕</span>
+      </div>
+      <p class="hero-desc">You deserve a day as beautiful and amazing as you are. This little corner of the internet was made just for you. 🩷</p>
+      <div class="hero-buttons">
+        <a href="#gallery" class="btn-primary">See Your Photos 📸</a>
+        <a href="#wishes" class="btn-secondary">Read Your Wishes 💌</a>
+      </div>
+    </div>
+    <div class="hero-cake">
+      <div class="cake-wrap">
+        <div class="cake-candles">
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+          <div class="candle"><div class="flame"></div></div>
+        </div>
+        <div class="cake-top"></div>
+        <div class="cake-mid"></div>
+        <div class="cake-base"></div>
+        <div class="cake-plate"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE CARDS SECTION -->
+  <section class="cards-section" id="surprises">
+    <div class="section-header">
+      <span class="section-icon">🎀</span>
+      <h2 class="section-title">Little Surprises for You</h2>
+      <p class="section-sub">Click each card to reveal something special 💗</p>
+    </div>
+    <div class="cards-grid">
+      <div class="surprise-card" id="card1" onclick="revealCard(1)">
+        <div class="card-front">
+          <div class="card-icon">🌷</div>
+          <h3>A Little Compliment</h3>
+          <p class="card-tap">Tap to reveal 💕</p>
+        </div>
+        <div class="card-back">
+          <div class="card-back-icon">🌷</div>
+          <p>"You have the most genuine and warm personality. The way you make people feel comfortable around you is truly a gift. Never underestimate how special you are, Jeevitha!"</p>
+          <div class="card-stars">⭐✨⭐</div>
+        </div>
+      </div>
+      <div class="surprise-card" id="card2" onclick="revealCard(2)">
+        <div class="card-front">
+          <div class="card-icon">💌</div>
+          <h3>A Birthday Wish</h3>
+          <p class="card-tap">Tap to reveal 💕</p>
+        </div>
+        <div class="card-back">
+          <div class="card-back-icon">💌</div>
+          <p>"May every single day of this new year bring you joy, opportunities, and moments that take your breath away. You deserve nothing but the absolute best, Jeevitha! 🎉"</p>
+          <div class="card-stars">🌸💕🌸</div>
+        </div>
+      </div>
+      <div class="surprise-card" id="card3" onclick="revealCard(3)">
+        <div class="card-front">
+          <div class="card-icon">🎁</div>
+          <h3>A Friendship Surprise</h3>
+          <p class="card-tap">Tap to reveal 💕</p>
+        </div>
+        <div class="card-back">
+          <div class="card-back-icon">🎁</div>
+          <p>"Having you as a friend is one of the best things that happened. Here's to more laughter, more adventures, more random conversations, and more beautiful memories ahead! 🥂💖"</p>
+          <div class="card-stars">🎀💗🎀</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-header">
+      <span class="section-icon">📸</span>
+      <h2 class="section-title">10 Little Glimpses of You ✨</h2>
+      <p class="section-sub">Every photo tells a story 💗 Click any photo to preview</p>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- BIRTHDAY WISHES SECTION -->
+  <section class="wishes-section" id="wishes">
+    <div class="section-header">
+      <span class="section-icon">💌</span>
+      <h2 class="section-title">Birthday Wishes for Jeevitha 🌸</h2>
+      <p class="section-sub">From the heart, just for you 💗</p>
+    </div>
+    <div class="wishes-container" id="wishesContainer"></div>
+  </section>
+
+  <!-- FINAL SURPRISE BUTTON -->
+  <section class="final-cta">
+    <div class="cta-decoration">
+      <span>🎊</span><span>🌸</span><span>✨</span><span>💖</span><span>✨</span><span>🌸</span><span>🎊</span>
+    </div>
+    <h2 class="cta-title">Ready for One More Surprise?</h2>
+    <p class="cta-sub">The best is saved for last... 🎁</p>
+    <button class="btn-grand" id="grandRevealBtn" onclick="showGrandReveal()">
+      <span class="btn-grand-inner">Jeevitha, One Last Surprise! 🎁</span>
+    </button>
+    <div class="cta-decoration">
+      <span>🎊</span><span>🌸</span><span>✨</span><span>💖</span><span>✨</span><span>🌸</span><span>🎊</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- GRAND REVEAL SCREEN -->
+<div id="grandReveal" class="grand-reveal hidden">
+  <canvas id="revealConfetti"></canvas>
+  <div class="grand-reveal-inner">
+    <div class="grand-header">
+      <div class="grand-floaters" id="grandFloaters"></div>
+      <div class="grand-badge">🎂 The Big Surprise 🎂</div>
+      <h1 class="grand-title">HAPPY BIRTHDAY,<br><span class="grand-name">JEEVITHA!</span></h1>
+      <div class="grand-title-sub">💖🎂🌸✨🎀✨🌸🎂💖</div>
+    </div>
+
+    <div class="collage-section">
+      <h2 class="collage-title">10 Little Glimpses of You ✨</h2>
+      <p class="collage-sub">Every moment, every smile — all together, just for you 💗</p>
+      <div class="collage-grid" id="collageGrid"></div>
+    </div>
+
+    <div class="grand-wishes-section">
+      <h2 class="grand-wishes-title">Birthday Wishes for Jeevitha 🌸</h2>
+      <div class="grand-wishes-grid" id="grandWishesGrid"></div>
+    </div>
+
+    <div class="letter-section">
+      <div class="letter-paper">
+        <div class="letter-decoration top">💌 ✨ 💕 ✨ 💌</div>
+        <h2 class="letter-title">A Little Letter for You 💗</h2>
+        <div class="letter-body">
+          <p class="letter-salutation">Dear Jeevitha, 💗</p>
+          <p>Happy Birthday!</p>
+          <p>I made this little surprise especially for you because I wanted your special day to have something a little different.</p>
+          <p>Thank you for being such a lovely friend. I hope your life is filled with happiness, laughter, success, exciting opportunities, and memories that make you smile every time you think about them.</p>
+          <p>Always believe in yourself, keep chasing your dreams, and never forget how much potential you have.</p>
+          <p>May this birthday mark the beginning of an amazing chapter filled with beautiful experiences, genuine friendships, and countless reasons to be happy.</p>
+          <p>Keep smiling, keep shining, and keep being the wonderful person you are.</p>
+          <p>Happy Birthday once again, Jeevitha! Have an absolutely amazing day! 🎂🌸💖</p>
+          <p class="letter-sign">With lots of friendship and warm wishes,<br><strong>Your Friend 💌</strong></p>
+        </div>
+        <div class="letter-decoration bottom">💌 ✨ 💕 ✨ 💌</div>
+      </div>
+    </div>
+
+    <div class="replay-section">
+      <div class="replay-hearts">💗🌸💗🌸💗</div>
+      <h3 class="replay-text">Hope you loved your surprise, Jeevitha! 🥰</h3>
+      <button class="btn-replay" onclick="replaySurprise()">🔄 Replay the Surprise</button>
+    </div>
+  </div>
+</div>
+
+<!-- PHOTO LIGHTBOX -->
+<div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightboxImg" src="" alt="Jeevitha" />
+    <p id="lightboxCaption" class="lightbox-caption"></p>
+    <div class="lightbox-nav">
+      <button onclick="lightboxPrev()">← Prev</button>
+      <span id="lightboxCounter"></span>
+      <button onclick="lightboxNext()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
