@@ -482,6 +482,16 @@ function showGrandReveal() {
 }
 
 function replaySurprise() {
+  // ---- Stop & fully reset background music ----
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+  musicStarted = false;   // allow startBgMusic() to fire again on next gift tap
+  userPaused  = false;
+  // Hide the floating music button until gift is opened again
+  musicBtn.classList.add('hidden');
+  musicBtn.classList.remove('show-btn', 'playing', 'muted');
+  musicIcon.textContent = '🎵';
+
   // Hide grand reveal
   const grandReveal = document.getElementById('grandReveal');
   grandReveal.classList.add('hidden');
