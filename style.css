@@ -1339,3 +1339,78 @@ body {
 ::-webkit-scrollbar-track { background: var(--pink-light); }
 ::-webkit-scrollbar-thumb { background: var(--pink-main); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--rose); }
+
+/* =============================================
+   FLOATING MUSIC CONTROL BUTTON
+   ============================================= */
+.music-toggle-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9500;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  /* Glassy pink — matches the site palette */
+  background: linear-gradient(135deg, rgba(255, 77, 148, 0.92), rgba(199, 32, 128, 0.92));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 24px rgba(255, 77, 148, 0.45), 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s var(--transition), box-shadow 0.3s ease, opacity 0.4s ease;
+  /* Entrance: fade in when shown */
+  opacity: 1;
+}
+
+.music-toggle-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 10px 32px rgba(255, 77, 148, 0.6), 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.music-toggle-btn:active {
+  transform: scale(0.96);
+}
+
+/* Spinning note when music is playing */
+@keyframes musicNoteSpin {
+  0%   { transform: rotate(0deg)   scale(1); }
+  50%  { transform: rotate(15deg)  scale(1.1); }
+  100% { transform: rotate(0deg)   scale(1); }
+}
+
+.music-toggle-btn.playing #musicIcon {
+  display: inline-block;
+  animation: musicNoteSpin 1.8s ease-in-out infinite;
+}
+
+/* Muted / paused state — dimmer appearance */
+.music-toggle-btn.muted {
+  background: linear-gradient(135deg, rgba(180, 180, 180, 0.88), rgba(120, 120, 120, 0.88));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Fade in animation for button entrance */
+@keyframes musicBtnFadeIn {
+  from { opacity: 0; transform: scale(0.6) translateY(12px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+.music-toggle-btn.show-btn {
+  animation: musicBtnFadeIn 0.5s var(--transition) forwards;
+}
+
+/* Responsive — slightly smaller on mobile */
+@media (max-width: 480px) {
+  .music-toggle-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.15rem;
+    bottom: 16px;
+    right: 16px;
+  }
+}
+

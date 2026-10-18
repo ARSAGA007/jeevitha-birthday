@@ -192,6 +192,66 @@ const mainConfetti = new Confetti('confettiCanvas');
 let revealConfetti = null;
 
 // =============================================
+// BACKGROUND MUSIC
+// =============================================
+const bgMusic = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicToggleBtn');
+const musicIcon = document.getElementById('musicIcon');
+let musicStarted = false;
+
+bgMusic.volume = 0.30;
+bgMusic.loop = true;
+
+function startBgMusic() {
+  if (musicStarted) return;          // prevent duplicate starts
+  musicStarted = true;
+
+  const playPromise = bgMusic.play();
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => {
+        showMusicBtn(true);
+      })
+      .catch((err) => {
+        // Autoplay blocked — still show button so user can start manually
+        console.warn('Audio autoplay blocked:', err);
+        showMusicBtn(false);
+      });
+  }
+}
+
+function showMusicBtn(playing) {
+  musicBtn.classList.remove('hidden');
+  musicBtn.classList.add('show-btn');
+  if (playing) {
+    musicBtn.classList.add('playing');
+    musicBtn.classList.remove('muted');
+    musicIcon.textContent = '🎵';
+  } else {
+    musicBtn.classList.remove('playing');
+    musicBtn.classList.add('muted');
+    musicIcon.textContent = '🔇';
+  }
+}
+
+musicBtn.addEventListener('click', () => {
+  if (bgMusic.paused) {
+    bgMusic.play()
+      .then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.classList.remove('muted');
+        musicIcon.textContent = '🎵';
+      })
+      .catch(() => {});
+  } else {
+    bgMusic.pause();
+    musicBtn.classList.remove('playing');
+    musicBtn.classList.add('muted');
+    musicIcon.textContent = '🔇';
+  }
+});
+
+// =============================================
 // GIFT BOX OPENING
 // =============================================
 function openGift() {
@@ -217,6 +277,7 @@ function openGift() {
     document.body.style.overflow = '';
     initScrollAnimations();
     mainConfetti.burst(100);
+    startBgMusic();          // 🎵 start looping music
   }, 1400);
 }
 
