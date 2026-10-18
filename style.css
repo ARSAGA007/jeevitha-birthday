@@ -631,6 +631,8 @@ body {
   perspective: 1000px;
   cursor: pointer;
   height: 280px;
+  position: relative;
+  transform-style: preserve-3d;   /* ensures proper 3D stacking */
 }
 .surprise-card .card-front,
 .surprise-card .card-back {
@@ -644,9 +646,9 @@ body {
   justify-content: center;
   text-align: center;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;  /* Chrome/Safari fix */
   transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.surprise-card { position: relative; }
 
 .card-front {
   background: linear-gradient(145deg, #fff, #ffd6e7);
@@ -668,10 +670,12 @@ body {
 .card-icon, .card-back-icon {
   font-size: 3rem;
   margin-bottom: 16px;
-  animation: iconSpin 4s linear infinite;
+  animation: iconFloat 3s ease-in-out infinite;
 }
-@keyframes iconSpin {
-  0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); }
+/* Safe animation — no rotateY so the back face never bleeds through */
+@keyframes iconFloat {
+  0%,  100% { transform: scale(1)    translateY(0);    }
+  50%        { transform: scale(1.12) translateY(-5px); }
 }
 
 .card-front h3 {
