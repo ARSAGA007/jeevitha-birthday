@@ -339,6 +339,117 @@ body {
   font-weight: 500;
 }
 
+/* =============================================
+   HERO SCROLL HINT — NEW ANIMATED MESSAGE
+   ============================================= */
+.hero-scroll-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* --- Entrance animation --- */
+@keyframes scrollInviteFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Gentle pulse loop (runs after entrance) --- */
+@keyframes scrollInvitePulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.03); }
+}
+
+/* --- Arrow bounce loop --- */
+@keyframes scrollArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+.scroll-invite-text {
+  font-family: var(--font-cursive);
+  font-size: clamp(1rem, 2.8vw, 1.35rem);
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.4px;
+  line-height: 1.55;
+  /* Gradient text — complements the pink/rose palette */
+  background: linear-gradient(135deg, #e0006e 0%, #ff4d94 45%, #c72080 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 10px rgba(255, 77, 148, 0.25));
+  /* Entrance: fade-in-up, 1 s duration, starts after 0.5 s delay */
+  animation:
+    scrollInviteFadeUp 1s ease forwards 0.5s,
+    scrollInvitePulse  0.8s ease-in-out infinite 1.5s;
+  /* Hidden until entrance kicks in */
+  opacity: 0;
+  /* Prevent text overflow on small screens */
+  max-width: 90vw;
+  word-break: break-word;
+  padding: 0 8px;
+}
+
+.scroll-invite-arrow {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  color: var(--pink-main);
+  filter: drop-shadow(0 2px 6px rgba(255, 77, 148, 0.4));
+  animation: scrollArrowBounce 1.2s ease-in-out infinite;
+  /* Inherit entrance delay so arrow appears with text */
+  opacity: 1;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* Stop arrow animation when scroll has started (toggled via JS) */
+.scroll-invite-arrow.paused {
+  animation-play-state: paused;
+}
+
+/* =============================================
+   REDUCED MOTION — accessibility
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-invite-text {
+    /* Keep text visible but skip pulsing */
+    animation: scrollInviteFadeUp 1s ease forwards 0.5s;
+  }
+  .scroll-invite-arrow {
+    animation: none;
+  }
+}
+
+/* =============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================= */
+@media (max-width: 768px) {
+  .scroll-invite-text {
+    font-size: clamp(0.92rem, 4vw, 1.15rem);
+    padding: 0 12px;
+  }
+  .scroll-invite-arrow {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-invite-text {
+    font-size: clamp(0.88rem, 4.5vw, 1.05rem);
+    letter-spacing: 0.2px;
+    padding: 0 16px;
+  }
+}
+
 .hero-buttons {
   display: flex;
   gap: 16px;

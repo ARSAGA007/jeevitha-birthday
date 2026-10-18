@@ -439,3 +439,16 @@ window.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) initScrollAnimations();
 });
+
+// =============================================
+// SCROLL INVITE ARROW — PAUSE ON SCROLL
+// =============================================
+(function () {
+  function pauseScrollArrow() {
+    const arrow = document.getElementById('scrollInviteArrow');
+    if (arrow) arrow.classList.add('paused');
+    window.removeEventListener('scroll', pauseScrollArrow, { passive: true });
+  }
+  window.addEventListener('scroll', pauseScrollArrow, { passive: true });
+})();
+
