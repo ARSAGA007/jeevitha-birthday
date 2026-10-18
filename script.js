@@ -192,30 +192,62 @@ const mainConfetti = new Confetti('confettiCanvas');
 let revealConfetti = null;
 
 // =============================================
-// BACKGROUND MUSIC
+// BACKGROUND MUSIC — CONTINUOUS BULLETPROOF LOOP
 // =============================================
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicToggleBtn');
 const musicIcon = document.getElementById('musicIcon');
-let musicStarted = false;
 
+let musicStarted = false;
+let userPaused = false;   // true only when user explicitly hits the toggle button
+let watchdogTimer = null;
+
+// Core settings
 bgMusic.volume = 0.30;
-bgMusic.loop = true;
+bgMusic.loop = true;      // native loop (layer 1)
+
+// Layer 2: ended event — restart if loop somehow missed
+bgMusic.addEventListener('ended', () => {
+  if (!userPaused) {
+    bgMusic.currentTime = 0;
+    bgMusic.play().catch(() => {});
+  }
+});
+
+// Layer 3: page visibility — resume when tab comes back into focus
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && musicStarted && !userPaused && bgMusic.paused) {
+    bgMusic.play().catch(() => {});
+  }
+});
+
+// Layer 4: watchdog — every 3 s, ensure music is still playing
+function startWatchdog() {
+  if (watchdogTimer) return;
+  watchdogTimer = setInterval(() => {
+    if (musicStarted && !userPaused && bgMusic.paused) {
+      bgMusic.currentTime = bgMusic.currentTime || 0;
+      bgMusic.play().catch(() => {});
+    }
+  }, 3000);
+}
 
 function startBgMusic() {
-  if (musicStarted) return;          // prevent duplicate starts
+  if (musicStarted) return;
   musicStarted = true;
 
+  bgMusic.currentTime = 0;
   const playPromise = bgMusic.play();
   if (playPromise !== undefined) {
     playPromise
       .then(() => {
         showMusicBtn(true);
+        startWatchdog();
       })
       .catch((err) => {
-        // Autoplay blocked — still show button so user can start manually
         console.warn('Audio autoplay blocked:', err);
-        showMusicBtn(false);
+        showMusicBtn(false);   // show muted icon so user can tap to start
+        startWatchdog();
       });
   }
 }
@@ -234,8 +266,10 @@ function showMusicBtn(playing) {
   }
 }
 
+// User toggle: pause ↔ resume
 musicBtn.addEventListener('click', () => {
   if (bgMusic.paused) {
+    userPaused = false;
     bgMusic.play()
       .then(() => {
         musicBtn.classList.add('playing');
@@ -244,12 +278,14 @@ musicBtn.addEventListener('click', () => {
       })
       .catch(() => {});
   } else {
+    userPaused = true;
     bgMusic.pause();
     musicBtn.classList.remove('playing');
     musicBtn.classList.add('muted');
     musicIcon.textContent = '🔇';
   }
 });
+
 
 // =============================================
 // GIFT BOX OPENING
