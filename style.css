@@ -326,9 +326,10 @@ body {
   margin-bottom: 24px;
   font-size: 1.2rem;
   animation: dividerSway 3s ease-in-out infinite alternate;
+  letter-spacing: 6px;   /* fixed base — avoids layout shift on mobile */
 }
 @keyframes dividerSway {
-  from { letter-spacing: 4px; } to { letter-spacing: 8px; }
+  from { opacity: 0.75; } to { opacity: 1; }
 }
 
 .hero-desc {
@@ -581,11 +582,11 @@ body {
   font-size: 2.5rem;
   display: block;
   margin-bottom: 12px;
-  animation: iconBounce 2s ease-in-out infinite;
+  animation: iconBounce 2.5s ease-in-out infinite;
 }
 @keyframes iconBounce {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(5deg); }
+  50%       { transform: translateY(-5px) rotate(3deg); }
 }
 
 .section-title {
@@ -674,8 +675,8 @@ body {
 }
 /* Safe animation — no rotateY so the back face never bleeds through */
 @keyframes iconFloat {
-  0%,  100% { transform: scale(1)    translateY(0);    }
-  50%        { transform: scale(1.12) translateY(-5px); }
+  0%,  100% { transform: scale(1)    translateY(0);   }
+  50%        { transform: scale(1.05) translateY(-3px); }
 }
 
 .card-front h3 {
@@ -872,9 +873,10 @@ body {
   letter-spacing: 8px;
   margin-bottom: 24px;
   animation: ctaSway 3s ease-in-out infinite alternate;
+  letter-spacing: 8px;   /* fixed base — prevents overflow on mobile */
 }
 @keyframes ctaSway {
-  from { letter-spacing: 8px; } to { letter-spacing: 16px; }
+  from { opacity: 0.8; } to { opacity: 1; }
 }
 
 .cta-title {
@@ -1300,6 +1302,52 @@ body {
   .btn-grand-inner { padding: 18px 32px; }
   .wishes-container { grid-template-columns: 1fr; }
   .grand-wishes-grid { grid-template-columns: 1fr; }
+
+  /* ---- Mobile animation tuning ---- */
+
+  /* Stop background shimmer from causing repaint on scroll */
+  .hero-section::before { animation: none; }
+
+  /* Freeze letter-spacing sway — prevents text overflow / layout shift */
+  .hero-divider  { animation: none; letter-spacing: 6px; }
+  .cta-decoration { animation: none; letter-spacing: 8px; }
+  .replay-hearts { animation: none; letter-spacing: 8px; }
+  .grand-title-sub { animation: none; letter-spacing: 4px; }
+
+  /* Subtler icon movement on small screens */
+  .card-icon, .card-back-icon {
+    animation: iconFloatMobile 3s ease-in-out infinite;
+  }
+  @keyframes iconFloatMobile {
+    0%, 100% { transform: scale(1)    translateY(0);   }
+    50%       { transform: scale(1.03) translateY(-2px); }
+  }
+
+  .section-icon {
+    animation: iconBounceMobile 2.5s ease-in-out infinite;
+  }
+  @keyframes iconBounceMobile {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%       { transform: translateY(-3px) rotate(2deg); }
+  }
+
+  /* Keep cake bob but smaller */
+  @keyframes cakeBob {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+  }
+
+  /* Reduce gift glow pulse */
+  @keyframes pulseGlow {
+    0%, 100% { transform: scale(1);   opacity: 0.3; }
+    50%       { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  /* Smaller scroll arrow bounce */
+  @keyframes scrollArrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(4px); }
+  }
 }
 
 @media (max-width: 480px) {
