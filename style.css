@@ -915,6 +915,12 @@ body {
 .btn-grand:hover { transform: scale(1.07); }
 .btn-grand:active { transform: scale(0.97); }
 
+/* Bottom emoji row — push it clearly onto its own line */
+.final-cta .cta-decoration:last-child {
+  margin-top: 36px;
+  margin-bottom: 0;
+}
+
 .btn-grand-inner {
   display: block;
   padding: 20px 52px;
