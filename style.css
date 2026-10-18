@@ -49,23 +49,24 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;           /* above section backgrounds, below all UI */
   overflow: hidden;
 }
 
 .bg-floater {
   position: absolute;
   animation: floatDrift linear infinite;
-  opacity: 0.15;
+  opacity: 0.35;
   font-size: 1.5rem;
   user-select: none;
+  will-change: transform;
 }
 
 @keyframes floatDrift {
-  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-  10% { opacity: 0.15; }
-  90% { opacity: 0.15; }
-  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0;    }
+  8%   { opacity: 0.35; }
+  92%  { opacity: 0.35; }
+  100% { transform: translateY(-15vh) rotate(360deg); opacity: 0;    }
 }
 
 /* =============================================

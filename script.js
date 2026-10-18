@@ -49,18 +49,31 @@ const wishes = [
 // =============================================
 function createBgFloaters() {
   const container = document.getElementById('bgFloaters');
-  const symbols = ['💕', '🌸', '✨', '💗', '🌺', '🎀', '💫', '🌷', '⭐', '🎊'];
-  for (let i = 0; i < 30; i++) {
+  const symbols = ['💕', '🌸', '✨', '💗', '🌺', '🎀', '💫', '🌷', '⭐', '🎊', '💖', '🌟', '🎈', '🩷'];
+  const count = 45;
+
+  for (let i = 0; i < count; i++) {
     const el = document.createElement('span');
     el.className = 'bg-floater';
     el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    el.style.left = Math.random() * 100 + 'vw';
-    el.style.animationDuration = (12 + Math.random() * 20) + 's';
-    el.style.animationDelay = (Math.random() * 20) + 's';
-    el.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+
+    // Spread evenly across full width
+    el.style.left = (i / count * 100 + Math.random() * (100 / count)) + 'vw';
+
+    const duration = 18 + Math.random() * 18;   // 18–36 s
+    el.style.animationDuration = duration + 's';
+
+    // Negative delay → already mid-animation when page loads (no bare start)
+    el.style.animationDelay = -(Math.random() * duration) + 's';
+
+    // Varied sizes: small, medium, large
+    const sizes = [0.85, 1.1, 1.4, 1.7, 2.0];
+    el.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)] + 'rem';
+
     container.appendChild(el);
   }
 }
+
 
 function createGiftHearts() {
   const container = document.getElementById('giftHearts');
