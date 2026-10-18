@@ -49,14 +49,14 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 2;           /* above section backgrounds, below all UI */
+  z-index: 0;           /* behind all content — no text overlap */
   overflow: hidden;
 }
 
 .bg-floater {
   position: absolute;
   animation: floatDrift linear infinite;
-  opacity: 0.35;
+  opacity: 0.20;
   font-size: 1.5rem;
   user-select: none;
   will-change: transform;
@@ -64,8 +64,8 @@ body {
 
 @keyframes floatDrift {
   0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0;    }
-  8%   { opacity: 0.35; }
-  92%  { opacity: 0.35; }
+  8%   { opacity: 0.20; }
+  92%  { opacity: 0.20; }
   100% { transform: translateY(-15vh) rotate(360deg); opacity: 0;    }
 }
 

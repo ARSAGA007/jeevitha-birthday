@@ -49,25 +49,25 @@ const wishes = [
 // =============================================
 function createBgFloaters() {
   const container = document.getElementById('bgFloaters');
-  const symbols = ['💕', '🌸', '✨', '💗', '🌺', '🎀', '💫', '🌷', '⭐', '🎊', '💖', '🌟', '🎈', '🩷'];
-  const count = 45;
+  // Only soft pink/rose emojis that match the page palette
+  const symbols = ['🌸', '🌷', '💗', '💕', '💖', '🩷', '✨', '💫'];
+  const count = 20;
 
   for (let i = 0; i < count; i++) {
     const el = document.createElement('span');
     el.className = 'bg-floater';
     el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
 
-    // Spread evenly across full width
+    // Even horizontal spread
     el.style.left = (i / count * 100 + Math.random() * (100 / count)) + 'vw';
 
-    const duration = 18 + Math.random() * 18;   // 18–36 s
+    const duration = 20 + Math.random() * 16;  // 20–36 s — slow & gentle
     el.style.animationDuration = duration + 's';
-
-    // Negative delay → already mid-animation when page loads (no bare start)
+    // Negative delay → already in motion on load
     el.style.animationDelay = -(Math.random() * duration) + 's';
 
-    // Varied sizes: small, medium, large
-    const sizes = [0.85, 1.1, 1.4, 1.7, 2.0];
+    // Small to medium only — nothing oversized
+    const sizes = [0.8, 1.0, 1.2, 1.4];
     el.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)] + 'rem';
 
     container.appendChild(el);
@@ -92,17 +92,21 @@ function createGiftHearts() {
 
 function createGrandFloaters() {
   const container = document.getElementById('grandFloaters');
-  const symbols = ['💖', '🎂', '🌸', '✨', '🎀', '💗', '🎊', '🌺', '💕', '⭐'];
-  for (let i = 0; i < 40; i++) {
+  // Rose/gold tones only — complement the dark purple grand reveal background
+  const symbols = ['💖', '🌸', '✨', '💗', '💕', '🌷', '💫'];
+  const count = 12;   // sparse — decorative, not congested
+
+  for (let i = 0; i < count; i++) {
     const el = document.createElement('span');
     el.style.cssText = `
       position: absolute;
       left: ${Math.random() * 100}%;
       top: ${Math.random() * 100}%;
-      font-size: ${0.8 + Math.random() * 1.5}rem;
-      opacity: ${0.1 + Math.random() * 0.3};
-      animation: dividerSway ${3 + Math.random() * 4}s ease-in-out infinite alternate;
+      font-size: ${0.8 + Math.random() * 0.7}rem;
+      opacity: ${0.08 + Math.random() * 0.10};
+      animation: dividerSway ${4 + Math.random() * 5}s ease-in-out infinite alternate;
       pointer-events: none;
+      user-select: none;
     `;
     el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
     container.appendChild(el);
